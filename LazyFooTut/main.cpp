@@ -10,6 +10,10 @@ SDL_Surface* gScreenSurface = NULL;
 
 SDL_Surface* gHelloWorld = NULL;
 
+bool quit = false;
+
+SDL_Event e;
+
 bool init() {
     bool success = true;
 
@@ -57,7 +61,14 @@ int main(int argc, char* args[]) {
         if (loadMedia() >= 0) {
             SDL_BlitSurface(gHelloWorld, NULL, gScreenSurface, NULL);
             SDL_UpdateWindowSurface(gWindow);
-            SDL_Delay(2000);
+
+            while (!quit) {
+                while (SDL_PollEvent(&e) != 0) {
+                    if (e.type == SDL_QUIT) {
+                        quit = true;
+                    }
+                }
+            }
         } else {
             printf("Could not load media");
         }
