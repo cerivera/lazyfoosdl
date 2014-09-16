@@ -11,7 +11,6 @@
 		AE7C24B1C6CBC305DDB53402 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = AE7C2F95F54427F70A9D5838 /* Credits.rtf */; };
 		AE7C2626D56A2492FC7C67D4 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE7C2ED8275061414204A940 /* SDL2.framework */; };
 		AE7C271A9C1C243B8624481B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE7C2DD4BB049C957A69C901 /* main.cpp */; };
-		AE7C2C7424718CF6B5466A7F /* marbles.bmp in Resources */ = {isa = PBXBuildFile; fileRef = AE7C23ECC29CD51F7BF9CE79 /* marbles.bmp */; };
 		AE7C2E8B482E9318DF8461F5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AE7C26A59EA3D3C01564CD1C /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
@@ -28,7 +27,6 @@
 /* Begin PBXFileReference section */
 		AE7C2017A4489D2084717ED0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		AE7C231B038C3B9E89C83E0F /* LazyFooTut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LazyFooTut.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		AE7C23ECC29CD51F7BF9CE79 /* marbles.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = marbles.bmp; sourceTree = "<group>"; };
 		AE7C287189A457799B0B5BA3 /* LazyFooTutTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LazyFooTutTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE7C2A852CBB76C665AF37C6 /* LazyFooTut-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LazyFooTut-Prefix.pch"; sourceTree = "<group>"; };
 		AE7C2A8F5D9BA8D9E5FD9A28 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -83,7 +81,6 @@
 			children = (
 				AE7C29DAFFEB362EA1A1BE73 /* Supporting Files */,
 				AE7C2F77F4F6A6C78F6B17C7 /* Images.xcassets */,
-				AE7C23ECC29CD51F7BF9CE79 /* marbles.bmp */,
 			);
 			path = LazyFooTut;
 			sourceTree = "<group>";
@@ -177,7 +174,6 @@
 				AE7C2E8B482E9318DF8461F5 /* InfoPlist.strings in Resources */,
 				AE7C24B1C6CBC305DDB53402 /* Credits.rtf in Resources */,
 				AE7C22A670D6514B585974C7 /* Images.xcassets in Resources */,
-				AE7C2C7424718CF6B5466A7F /* marbles.bmp in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
