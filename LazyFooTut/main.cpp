@@ -2,16 +2,6 @@
 #include <stdio.h>
 #include <string>
 
-// Key press surfaces constants
-enum KeyPressSurfaces {
-    KEY_PRESS_SURFACE_DEFAULT,
-    KEY_PRESS_SURFACE_UP,
-    KEY_PRESS_SURFACE_DOWN,
-    KEY_PRESS_SURFACE_LEFT,
-    KEY_PRESS_SURFACE_RIGHT,
-    KEY_PRESS_SURFACE_TOTAL
-};
-
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
@@ -33,55 +23,34 @@ SDL_Window* gWindow = NULL;
 // The surface contained by the window
 SDL_Surface* gScreenSurface = NULL;
 
-// Maps key presses to an image.
-SDL_Surface* gKeyPressSurfaces[KEY_PRESS_SURFACE_TOTAL];
-
-// Current displayed image
-SDL_Surface* gCurrentSurface = NULL;
+// Stretched image
+SDL_Surface* gStretchSurface = NULL;
 
 
 SDL_Surface* loadSurface(std::string path) {
+    SDL_Surface* optimizedSurface = NULL;
+
     SDL_Surface* loadedSurface = SDL_LoadBMP(path.c_str());
     if (loadedSurface == NULL) {
         printf("Unable to load image %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
+    } else {
+        optimizedSurface = SDL_ConvertSurface(loadedSurface, gScreenSurface->format, NULL);
+        if (optimizedSurface == NULL) {
+            printf("Unable to optimize image! %s\n", SDL_GetError());
+        }
+
+        SDL_FreeSurface(loadedSurface);
     }
-    return loadedSurface;
+
+    return optimizedSurface;
 }
 
-// Loads all the media that we're going to be using.
-// Is it more efficient to do it this way than on the fly?
-// This seems like it can kill performance
-// if there are thousands of images being used.
 bool loadMedia() {
     bool success = true;
 
-    gKeyPressSurfaces[KEY_PRESS_SURFACE_DEFAULT] = loadSurface("press.bmp");
-    if (gKeyPressSurfaces[KEY_PRESS_SURFACE_DEFAULT] == NULL) {
-        printf("Failed to load default image: %s", SDL_GetError());
-        success = false;
-    }
-
-    gKeyPressSurfaces[KEY_PRESS_SURFACE_UP] = loadSurface("up.bmp");
-    if (gKeyPressSurfaces[KEY_PRESS_SURFACE_UP] == NULL) {
-        printf("Failed to load up image: %s\n", SDL_GetError());
-        success = false;
-    }
-
-    gKeyPressSurfaces[KEY_PRESS_SURFACE_DOWN] = loadSurface("down.bmp");
-    if (gKeyPressSurfaces[KEY_PRESS_SURFACE_DOWN] == NULL) {
-        printf("Failed to load down image: %s\n", SDL_GetError());
-        success = false;
-    }
-
-    gKeyPressSurfaces[KEY_PRESS_SURFACE_LEFT] = loadSurface("left.bmp");
-    if (gKeyPressSurfaces[KEY_PRESS_SURFACE_UP] == NULL) {
-        printf("Failed to load left image: %s\n", SDL_GetError());
-        success = false;
-    }
-
-    gKeyPressSurfaces[KEY_PRESS_SURFACE_RIGHT] = loadSurface("right.bmp");
-    if (gKeyPressSurfaces[KEY_PRESS_SURFACE_RIGHT] == NULL) {
-        printf("Failed to load right image: %s\n", SDL_GetError());
+    gStretchSurface = loadSurface("stretch.bmp");
+    if (gStretchSurface == NULL) {
+        printf("Couldn't load stretch.bmp: %s\n", SDL_GetError());
         success = false;
     }
 
@@ -109,13 +78,8 @@ bool init() {
 
 
 void close() {
-    SDL_FreeSurface(gCurrentSurface);
-    gCurrentSurface = NULL;
-
-    // Might not need to do this since it's the main window surface.
-    // It probably gets cleaned up in SDL_DestroyWindow
-    //SDL_FreeSurface(gScreenSurface);
-    //gScreenSurface = NULL;
+    SDL_FreeSurface(gStretchSurface);
+    gStretchSurface = NULL;
 
     SDL_DestroyWindow(gWindow);
     gWindow = NULL;
@@ -128,36 +92,22 @@ int main(int argc, char* args[]) {
 
     SDL_Event e;
 
-
     if (init()) {
         if (loadMedia()) {
-            gCurrentSurface = gKeyPressSurfaces[KEY_PRESS_SURFACE_DEFAULT];
-
+            SDL_Rect stretchRect;
+            stretchRect.x = 0;
+            stretchRect.y = 0;
+            stretchRect.w = SCREEN_WIDTH;
+            stretchRect.h = SCREEN_HEIGHT;
+            SDL_BlitScaled(gStretchSurface, NULL, gScreenSurface, &stretchRect);
+            SDL_UpdateWindowSurface(gWindow);
             while(!quit) {
                 while(SDL_PollEvent(&e) != 0) {
 
                     if (e.type == SDL_QUIT) {
                         quit = true;
-                    } else if (e.type == SDL_KEYDOWN){
-                        switch (e.key.keysym.sym) {
-                            case SDLK_UP:
-                                gCurrentSurface = gKeyPressSurfaces[KEY_PRESS_SURFACE_UP];
-                                break;
-                            case SDLK_DOWN:
-                                gCurrentSurface = gKeyPressSurfaces[KEY_PRESS_SURFACE_DOWN];
-                                break;
-                            case SDLK_LEFT:
-                                gCurrentSurface = gKeyPressSurfaces[KEY_PRESS_SURFACE_LEFT];
-                                break;
-                            case SDLK_RIGHT:
-                                gCurrentSurface = gKeyPressSurfaces[KEY_PRESS_SURFACE_RIGHT];
-                                break;
-                        }
                     }
                 }
-
-                SDL_BlitSurface(gCurrentSurface, NULL, gScreenSurface, NULL);
-                SDL_UpdateWindowSurface(gWindow);
             }
         }
     }
