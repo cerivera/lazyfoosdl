@@ -1,4 +1,5 @@
 #include <SDL2/SDL.h>
+#include <SDL2_image/SDL_image.h>
 #include <stdio.h>
 #include <string>
 
@@ -30,9 +31,9 @@ SDL_Surface* gStretchSurface = NULL;
 SDL_Surface* loadSurface(std::string path) {
     SDL_Surface* optimizedSurface = NULL;
 
-    SDL_Surface* loadedSurface = SDL_LoadBMP(path.c_str());
+    SDL_Surface* loadedSurface = IMG_Load(path.c_str());
     if (loadedSurface == NULL) {
-        printf("Unable to load image %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
+        printf("Unable to load image %s! SDL Error: %s\n", path.c_str(), IMG_GetError());
     } else {
         optimizedSurface = SDL_ConvertSurface(loadedSurface, gScreenSurface->format, NULL);
         if (optimizedSurface == NULL) {
@@ -48,7 +49,7 @@ SDL_Surface* loadSurface(std::string path) {
 bool loadMedia() {
     bool success = true;
 
-    gStretchSurface = loadSurface("stretch.bmp");
+    gStretchSurface = loadSurface("loaded.png");
     if (gStretchSurface == NULL) {
         printf("Couldn't load stretch.bmp: %s\n", SDL_GetError());
         success = false;
@@ -69,7 +70,13 @@ bool init() {
             printf("Failed to create window: %s\n", SDL_GetError());
             success = false;
         }  else {
-            gScreenSurface = SDL_GetWindowSurface(gWindow);
+            int imgFlags = IMG_INIT_PNG;
+            if (!(IMG_Init(imgFlags) & imgFlags )) {
+                printf("SDLimage could not initialize! %s\n", IMG_GetError());
+                success = false;
+            } else {
+                gScreenSurface = SDL_GetWindowSurface(gWindow);
+            }
         }
     }
 
