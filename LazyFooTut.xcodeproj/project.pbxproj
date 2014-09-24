@@ -15,6 +15,7 @@
 		AE7C2AF48D42187B86876D64 /* stretch.bmp in Resources */ = {isa = PBXBuildFile; fileRef = AE7C2456114E98AA912838F0 /* stretch.bmp */; };
 		AE7C2E5DDFD49C74D63A2E80 /* loaded.png in Resources */ = {isa = PBXBuildFile; fileRef = AE7C2BB6DE8FF1F99261FBB4 /* loaded.png */; };
 		AE7C2E8B482E9318DF8461F5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AE7C26A59EA3D3C01564CD1C /* InfoPlist.strings */; };
+		AE7C2F94E7D8416DA85A5DBB /* texture.png in Resources */ = {isa = PBXBuildFile; fileRef = AE7C22F66F2343919274DCEB /* texture.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		AE7C2017A4489D2084717ED0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		AE7C22F66F2343919274DCEB /* texture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texture.png; sourceTree = "<group>"; };
 		AE7C231B038C3B9E89C83E0F /* LazyFooTut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LazyFooTut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE7C241B5273454B70258E7C /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = /Library/Frameworks/SDL2_image.framework; sourceTree = "<absolute>"; };
 		AE7C2456114E98AA912838F0 /* stretch.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = stretch.bmp; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 				AE7C2F77F4F6A6C78F6B17C7 /* Images.xcassets */,
 				AE7C2456114E98AA912838F0 /* stretch.bmp */,
 				AE7C2BB6DE8FF1F99261FBB4 /* loaded.png */,
+				AE7C22F66F2343919274DCEB /* texture.png */,
 			);
 			path = LazyFooTut;
 			sourceTree = "<group>";
@@ -186,6 +189,7 @@
 				AE7C22A670D6514B585974C7 /* Images.xcassets in Resources */,
 				AE7C2AF48D42187B86876D64 /* stretch.bmp in Resources */,
 				AE7C2E5DDFD49C74D63A2E80 /* loaded.png in Resources */,
+				AE7C2F94E7D8416DA85A5DBB /* texture.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
